@@ -19,7 +19,7 @@ subprojects {
     }
 
     version = '3.1.0'
-    group = 'com.journeyapps'
+    group = 'com.yournextconcepts'
     apply plugin: 'android-sdk-manager'
 
     ext.androidBuildTools = '23.0.2'

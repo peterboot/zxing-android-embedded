@@ -294,6 +294,16 @@ public final class CameraManager {
     private static List<Size> getPreviewSizes(Camera.Parameters parameters) {
         List<Camera.Size> rawSupportedSizes = parameters.getSupportedPreviewSizes();
         List<Size> previewSizes = new ArrayList<>();
+
+        // add support for camera drivers that define the preview size as preview_capture-size-*
+        if (parameters.get("preview_capture-size-height") != null && parameters.get("preview_capture-size-width") != null) {
+            int width = Integer.parseInt(parameters.get("preview_capture-size-width"));
+            int height = Integer.parseInt(parameters.get("preview_capture-size-height"));
+
+            previewSizes.add(new Size(width, height));
+            return previewSizes;
+        }
+
         if (rawSupportedSizes == null) {
             Camera.Size defaultSize = parameters.getPreviewSize();
             if (defaultSize != null) {
